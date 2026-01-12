@@ -1,0 +1,31 @@
+erDiagram
+    CITY ||--o{ LAWYER : has
+    CITY ||--o{ BAILIFF : has
+
+    CITY {
+        int id PK
+        string name
+    }
+
+    LAWYER {
+        int id PK
+        string name
+        string email UK
+        string phone UK
+        int years_of_experience
+        decimal hourly_rate
+        enum specialization
+        boolean consultation_online
+        int city_id FK
+    }
+
+    BAILIFF {
+        int id PK
+        string name
+        string email UK
+        string phone UK
+        int years_of_experience
+        decimal hourly_rate
+        enum type
+        int city_id FK
+    }
