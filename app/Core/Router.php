@@ -1,38 +1,43 @@
 <?php
-
 namespace App\Core;
+
+use App\Controllers\HomeController;
 
 class Router
 {
     private array $routes = [];
-
-    public function get($uri, $callback)
+    public function get($uri, $option): void
     {
-        $this->routes["GET"][$uri] = $callback;
+        $this->routes["GET"][$uri] = $option;
     }
-
-    public function post($uri, $callback)
+    public function post($uri, $option): void
     {
-        $this->routes["POST"][$uri] = $callback;
+        $this->routes["POST"][$uri] = $option;
     }
-
-    public function resolve()
+    public function dispatch($uri)
     {
-        $uri = $_SERVER["REQUEST_URI"] ?? '/';
-        $uri = explode('?', $uri)[0];
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        $options = $this->routes[$requestMethod][$uri] ?? false;
 
-        $method = $_SERVER["REQUEST_METHOD"];
 
-        $callback = $this->routes[$method][$uri] ?? false;
-
-        if(!$callback){
-            echo "404 - page not found";
-            return;
+        if(!$options) {
+            echo "error 404";
+            exit();
         }
 
-        if(is_callable($callback)){
-            return $callback();
-        }
-    }
+        $callable = $options['callable'];
+        $method = $options['method'];
 
+        if(!in_array($requestMethod, $method)){
+            echo "error 404";
+            exit();
+        }
+
+
+        $controller = explode('::', $callable)[0];
+        $method = explode('::', $callable)[1];
+
+        $params = [];
+        call_user_func([new $controller(), $method], $params);
+    }
 }
