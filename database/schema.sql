@@ -10,7 +10,7 @@ CREATE TABLE lawyer(
                        phone VARCHAR(30) NOT NULL UNIQUE,
                        years_of_experience INT,
                        hourly_rate DECIMAL (10,2),
-                       specialization ENUM('Criminal Law', 'Civil', 'Family', 'Business') NOT NULL,
+                       specialization ENUM('Criminal Law', 'Civil Law', 'Family Law', 'Corporate Law', 'Tax Law', 'Intellectual Property') NOT NULL,
                        consultation_online BOOL,
                        city_id INT,
                        FOREIGN KEY (city_id) REFERENCES city(id)
@@ -23,7 +23,7 @@ CREATE TABLE bailiff(
                         phone VARCHAR(30) NOT NULL UNIQUE,
                         years_of_experience INT,
                         hourly_rate DECIMAL(10, 2),
-                        type ENUM('Serving', 'Enforcement', 'Verification'),
+                        type ENUM('Signification', 'execution', 'constats'),
                         city_id INT,
                         FOREIGN KEY (city_id) REFERENCES city(id)
 );
