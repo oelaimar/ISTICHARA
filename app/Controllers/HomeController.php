@@ -6,7 +6,7 @@ use App\Core\View;
 class HomeController {
     public function index(): void
     {
-        View::render('home/index');
+        View::render('home/index', $data);
     }
 }
 

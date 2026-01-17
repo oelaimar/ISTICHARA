@@ -27,7 +27,7 @@ class Database
         }
     }
 
-    public static function getInstanse(): Database
+    public static function getInstance(): Database
     {
         if (self::$instance === null) {
             self::$instance = new Database;
