@@ -1,7 +1,5 @@
 <?php
-namespace App\Core;
-
-use App\Controllers\HomeController;
+namespace App\Controllers\Core;
 
 class Router
 {
@@ -14,7 +12,7 @@ class Router
     {
         $this->routes["POST"][$uri] = $option;
     }
-    public function dispatch($uri)
+    public function dispatch($uri): void
     {
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $options = $this->routes[$requestMethod][$uri] ?? false;

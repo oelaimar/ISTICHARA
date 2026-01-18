@@ -1,12 +1,12 @@
 <?php
 
-use App\Core\Router;
+use App\Controllers\Core\Router;
 
 $router = new Router();
 
 $routes = [
     '/' => ["callable" => 'App\\Controllers\\HomeController::index', "method" => ['GET', 'POST'],],
-    '/user' => ["callable" => 'App\\Controllers\\UserController::index', "method" => ['GET', 'POST'],],
+    '/create' => ["callable" => 'App\\Controllers\\CreateController::index', "method" => ['GET', 'POST'],],
 ];
 
 $uri = $_SERVER["REQUEST_URI"] ?? '/';

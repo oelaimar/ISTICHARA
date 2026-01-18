@@ -1,10 +1,13 @@
 <?php
 
-use App\Core\Database;
-use App\Models\Bailiff;
-use App\Models\Repositories\CityRepository;
+namespace App\Models\Repositories;
 
-class BailiffRepositorty
+use App\Controllers\Core\Database;
+use App\Enums\Type;
+use App\Models\Bailiff;
+use PDO;
+
+class BailiffRepository
 {
     private PDO $pdo;
     public function __construct()
@@ -22,7 +25,7 @@ class BailiffRepositorty
             $data['phone'],
             $data['years_of_experience'],
             $data['hourly_rate'],
-            $data['type']
+            Type::from($data['type'])
         );
         $bailiff->setId($data['id']);
 

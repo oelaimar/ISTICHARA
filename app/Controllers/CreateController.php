@@ -6,7 +6,8 @@ use App\Models\Repositories\BailiffRepository;
 use App\Models\Repositories\CityRepository;
 use App\Models\Repositories\LawyerRepository;
 
-class HomeController {
+class CreateController
+{
     public function index(): void
     {
         $lawyerRepository = new LawyerRepository();
@@ -20,9 +21,6 @@ class HomeController {
                 "cities" => CityRepository::getAllCity(),
                 "cityStats" => CityRepository::getCityStats(),
             ];
-        View::render('home/index', $data);
+        View::render('home/create', $data);
     }
 }
-
-
-

@@ -1,8 +1,11 @@
 <?php
 
-use App\Core\Database;
+namespace App\Models\Repositories;
+
+use App\Controllers\Core\Database;
+use App\Enums\Specialization;
 use App\Models\Lawyer;
-use App\Models\Repositories\CityRepository;
+use PDO;
 
 class LawyerRepository
 {
@@ -23,7 +26,7 @@ class LawyerRepository
             $data['city_id'],
             $data['years_of_experience'],
             $data['hourly_rate'],
-            $data['specialization'],
+            specialization::from($data['specialization']),
             (bool)$data['consultation_online']
         );
         $lawyer->setId($data['id']);
@@ -74,6 +77,17 @@ class LawyerRepository
             return null;
         }
         return $this->hydrate($data);
+    }
+    public function findTopNumberOfLawyers(int $number): array
+    {
+        $sql = "SELECT * FROM lawyer ORDER BY years_of_experience DESC LIMIT {$number};";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $TopNumberOfLawyers = [];
+        while($row = $stmt->fetch()){
+            $TopNumberOfLawyers[] = $this->hydrate($row);
+        }
+        return $TopNumberOfLawyers;
     }
     //update
     public function update(Lawyer $lawyer) : bool
