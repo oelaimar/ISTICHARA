@@ -1,6 +1,7 @@
 <?php
 
 namespace  App\Controllers;
+
 use App\Controllers\Core\View;
 use App\Models\Repositories\BailiffRepository;
 use App\Models\Repositories\CityRepository;
@@ -21,6 +22,6 @@ class CreateController
                 "cities" => CityRepository::getAllCity(),
                 "cityStats" => CityRepository::getCityStats(),
             ];
-        View::render('home/create', $data);
+        View::render('create/index', $data);
     }
 }

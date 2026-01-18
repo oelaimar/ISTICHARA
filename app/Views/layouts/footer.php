@@ -1,4 +1,3 @@
-            </main>
             <footer class="bg-white border-t border-gray-200 mt-auto">
                 <div class="max-w-6xl mx-auto px-4 md:px-8 py-8">
 
@@ -11,5 +10,6 @@
                     </div>
                 </div>
             </footer>
+            </main>
       <script href="assets/script.js"></script>
             </div>

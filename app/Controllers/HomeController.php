@@ -1,12 +1,14 @@
 <?php
 
 namespace  App\Controllers;
+
 use App\Controllers\Core\View;
 use App\Models\Repositories\BailiffRepository;
 use App\Models\Repositories\CityRepository;
 use App\Models\Repositories\LawyerRepository;
 
-class HomeController {
+class HomeController
+{
     public function index(): void
     {
         $lawyerRepository = new LawyerRepository();

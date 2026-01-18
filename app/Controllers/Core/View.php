@@ -6,7 +6,7 @@ class View
 {
     public static function render(string $view, array $data = []): void
     {
-        $path = __DIR__ . '/../Views/' . $view . '.php';
+        $path = __DIR__ . '/../../Views/' . $view . '.php';
 
         if(!file_exists($path)){
             throw new \Exception("View {$view} not found");
