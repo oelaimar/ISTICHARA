@@ -15,7 +15,7 @@ class CreateController
         $bailiffRepository = new BailiffRepository();
         $data =
             [
-                "title" => "Home Page",
+                "title" => "CREATE Page",
                 "lawyers" => $lawyerRepository->findAll(),
                 "findTopNumberOfLawyers" => $lawyerRepository->findTopNumberOfLawyers(3),
                 "bailiffs" => $bailiffRepository->findAll(),

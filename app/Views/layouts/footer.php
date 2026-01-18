@@ -11,5 +11,5 @@
                 </div>
             </footer>
             </main>
-      <script href="assets/script.js"></script>
+      <script src="/assets/js/script.js"></script>
             </div>

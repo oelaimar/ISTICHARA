@@ -4,16 +4,7 @@
 <div class="flex h-screen overflow-hidden bg-white">
     <?php include_once __DIR__ . "/../layouts/aside.php" ?>
     <main class="flex-1 flex flex-col min-w-0 bg-gray-50/50 overflow-hidden">
-        <!-- Top Mobile Header -->
-        <header class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4 md:px-8">
-            <div class="flex items-center gap-4 ml-auto">
-                <button class="relative p-2 text-gray-400 hover:text-gray-500">
-                    <span class="iconify" data-icon="lucide:bell" data-width="20" style="stroke-width: 1.5;"></span>
-                    <span
-                            class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                </button>
-            </div>
-        </header>
+
         <div class="flex-1 overflow-auto p-4 md:p-8 space-y-8" id="main-container">
 <!-- VIEW 2: PROFESSIONAL MANAGEMENT (CREATE FORM) -->
 <div id="view-professionals" class="max-w-4xl mx-auto space-y-6">
@@ -22,10 +13,6 @@
             <h1 class="text-xl font-semibold tracking-tight text-gray-900">New Professional</h1>
             <p class="text-sm text-gray-500 mt-1">Add a lawyer or bailiff.</p>
         </div>
-        <button
-            class="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50 transition-colors">
-            Cancel
-        </button>
     </div>
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 md:p-8">
@@ -84,49 +71,25 @@
                     <label class="text-xs font-medium text-gray-700">City</label>
                     <select
                         class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow appearance-none">
-                        <option>Casablanca</option>
-                        <option>Rabat</option>
-                        <option>Marrakech</option>
-                        <option>Tanger</option>
+                        <?php foreach ($cities as $city) : ?>
+                        <option><?= $city->getName() ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
 
-            <!-- Dynamic Section: Avocat -->
-            <div id="fields-avocat" class="space-y-6 pt-4 border-t border-gray-100">
+            <!-- Dynamic Section: lawyer -->
+            <div id="fields-lawyer" class="space-y-6 pt-4 border-t border-gray-100">
                 <div class="space-y-3">
                     <label class="text-sm font-medium text-gray-900">Legal Specialties</label>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Criminal Law
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Civil Law
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Family
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Business
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Real Estate
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox"
-                                   class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
-                            Labor
-                        </label>
+                        <?php foreach (\App\Enums\Specialization::cases() as $spec) : ?>
+                            <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                                <input type="radio" name="specialty" value="<?= $spec->value ?>"
+                                       class="rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-500/20">
+                                <?= $spec->value ?>
+                            </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
 
@@ -146,63 +109,41 @@
                 </div>
             </div>
 
-            <!-- Dynamic Section: Huissier -->
-            <div id="fields-huissier" class="hidden-section space-y-6 pt-4 border-t border-gray-100">
+            <!-- Dynamic Section: Bailiff -->
+            <div id="fields-bailiff" class="hidden-section section-hide space-y-6 pt-4 border-t border-gray-100">
                 <div class="space-y-3">
                     <label class="text-sm font-medium text-gray-900">Authorized Act Types</label>
                     <div class="space-y-3">
+                        <?php
+                        $type_icons = [
+                            \App\Enums\Type::SIGNIFICATION->value => ['icon' => 'lucide:scroll-text', 'label' => 'Service', 'desc' => 'Judicial and extra-judicial acts'],
+                            \App\Enums\Type::EXECUTION->value => ['icon' => 'lucide:hammer', 'label' => 'Execution', 'desc' => 'Seizures and evictions'],
+                            \App\Enums\Type::CONSTATS->value => ['icon' => 'lucide:eye', 'label' => 'Reports', 'desc' => 'Material evidence'],
+                        ];
+                        foreach (\App\Enums\Type::cases() as $type) :
+                            $info = $type_icons[$type->value] ?? ['icon' => 'lucide:file-text', 'label' => ucfirst($type->value), 'desc' => ''];
+                        ?>
                         <label
                             class="flex p-3 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-purple-600 has-[:checked]:bg-purple-50">
-                            <input type="checkbox" class="sr-only">
+                            <input type="radio" name="act_type" value="<?= $type->value ?>" class="sr-only">
                             <div class="flex items-center gap-3">
                                 <div
                                     class="flex-shrink-0 w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center">
-                                                    <span class="iconify" data-icon="lucide:scroll-text"
+                                                    <span class="iconify" data-icon="<?= $info['icon'] ?>"
                                                           data-width="16"></span>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900">Service</p>
-                                    <p class="text-xs text-gray-500">Judicial and
-                                        extra-judicial acts</p>
+                                    <p class="text-sm font-medium text-gray-900"><?= $info['label'] ?></p>
+                                    <p class="text-xs text-gray-500"><?= $info['desc'] ?></p>
                                 </div>
                             </div>
                         </label>
-                        <label
-                            class="flex p-3 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-purple-600 has-[:checked]:bg-purple-50">
-                            <input type="checkbox" class="sr-only">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="flex-shrink-0 w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center">
-                                                    <span class="iconify" data-icon="lucide:hammer"
-                                                          data-width="16"></span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-900">Execution</p>
-                                    <p class="text-xs text-gray-500">Seizures and evictions</p>
-                                </div>
-                            </div>
-                        </label>
-                        <label
-                            class="flex p-3 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50 transition-colors has-[:checked]:border-purple-600 has-[:checked]:bg-purple-50">
-                            <input type="checkbox" class="sr-only">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    class="flex-shrink-0 w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center">
-                                    <span class="iconify" data-icon="lucide:eye" data-width="16"></span>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-900">Reports</p>
-                                    <p class="text-xs text-gray-500">Material evidence</p>
-                                </div>
-                            </div>
-                        </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end gap-3 pt-6">
-                <button type="button"
-                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-md hover:bg-gray-50">Reset</button>
                 <button type="submit"
                         class="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-md hover:bg-gray-800 shadow-sm">Create
                     account</button>
