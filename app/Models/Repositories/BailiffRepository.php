@@ -44,7 +44,7 @@ class BailiffRepository
                 ':phone' => $bailiff->getPhone(),
                 ':years_of_experience' => $bailiff->getExperienceYears(),
                 ':hourly_rate' => $bailiff->getHourlyRate(),
-                ':type' => $bailiff->getType(),
+                ':type' => $bailiff->getType()->value,
                 ':city_id' => $bailiff->getCityId()
             ]
         );
@@ -96,7 +96,7 @@ class BailiffRepository
                 ':phone' => $bailiff->getPhone(),
                 ':years_of_experience' => $bailiff->getExperienceYears(),
                 ':hourly_rate' => $bailiff->getHourlyRate(),
-                ':type' => $bailiff->getType(),
+                ':type' => $bailiff->getType()->value,
                 ':city_id' => $bailiff->getCityId()
             ]
         );

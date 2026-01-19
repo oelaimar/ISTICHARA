@@ -46,8 +46,8 @@ class LawyerRepository
                 ':phone' => $lawyer->getPhone(),
                 ':years_of_experience' => $lawyer->getExperienceYears(),
                 ':hourly_rate' => $lawyer->getHourlyRate(),
-                ':specialization' => $lawyer->getSpecialization(),
-                ':consultation_online' => $lawyer->getConsultation(),
+                ':specialization' => $lawyer->getSpecialization()->value,
+                ':consultation_online' => (int)$lawyer->getConsultation(),
                 ':city_id' => $lawyer->getCityId()
             ]
         );
@@ -111,8 +111,8 @@ class LawyerRepository
                 ':phone' => $lawyer->getPhone(),
                 ':years_of_experience' => $lawyer->getExperienceYears(),
                 ':hourly_rate' => $lawyer->getHourlyRate(),
-                ':specialization' => $lawyer->getSpecialization(),
-                ':consultation_online' => $lawyer->getConsultation(),
+                ':specialization' => $lawyer->getSpecialization()->value,
+                ':consultation_online' => (int)$lawyer->getConsultation(),
                 ':city_id' => $lawyer->getCityId()
             ]
         );

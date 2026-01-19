@@ -15,6 +15,17 @@ class CityRepository
         }
         return self::$pdo;
     }
+    public static function gatCityByName(string $name): City
+    {
+        $sql = "SELECT * FROM city WHERE name = :name;";
+        $stmt = self::getPdo()->prepare($sql);
+        $stmt->execute([':name' => $name]);
+        $data = $stmt->fetch();
+
+        $city = new City($data['name']);
+        $city->setId($data['id']);
+        return $city;
+    }
     public static function getCityById(int $id): City
     {
         $sql = "SELECT * FROM city WHERE id = :id;";
@@ -22,7 +33,9 @@ class CityRepository
         $stmt->execute([':id' => $id]);
         $data = $stmt->fetch();
 
-        return new City($data['name']);
+        $city = new City($data['name']);
+        $city->setId($data['id']);
+        return $city;
     }
     public static function getAllCity(): array
     {
@@ -31,7 +44,9 @@ class CityRepository
         $stmt->execute();
         $cities = [];
         while($row = $stmt->fetch()){
-            $cities[] = new City($row['name']);
+            $city = new City($row['name']);
+            $city->setId($row['id']);
+            $cities[] = $city;
         }
         return $cities;
     }

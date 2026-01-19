@@ -14,7 +14,13 @@ $routes = [
 $uri = $_SERVER["REQUEST_URI"] ?? '/';
 $uri = explode('?', $uri)[0];
 
-if(array_key_exists($uri, $routes)){
-    $router->get($uri, $routes[$uri]);
-    $router->dispatch($uri);
+foreach ($routes as $path => $config) {
+    if (in_array('GET', $config['method'])) {
+        $router->get($path, $config);
+    }
+    if (in_array('POST', $config['method'])) {
+        $router->post($path, $config);
+    }
 }
+
+$router->dispatch($uri);

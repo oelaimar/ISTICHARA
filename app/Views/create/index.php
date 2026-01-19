@@ -16,14 +16,14 @@
     </div>
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 md:p-8">
-        <form class="space-y-6">
+        <form class="space-y-6" method = 'POST'>
             <!-- Toggle Type -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-3">Professional
                     Type</label>
                 <div class="grid grid-cols-2 gap-4 max-w-md">
                     <label class="cursor-pointer relative">
-                        <input type="radio" name="prof_type" value="avocat" class="peer sr-only" checked
+                        <input type="radio" name="prof_type" value="lawyer" class="peer sr-only" checked
                                onchange="toggleFormFields()">
                         <div
                             class="p-4 rounded-lg border border-gray-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 hover:bg-gray-50 transition-all text-center">
@@ -34,7 +34,7 @@
                         </div>
                     </label>
                     <label class="cursor-pointer relative">
-                        <input type="radio" name="prof_type" value="huissier" class="peer sr-only"
+                        <input type="radio" name="prof_type" value="bailiff" class="peer sr-only"
                                onchange="toggleFormFields()">
                         <div
                             class="p-4 rounded-lg border border-gray-200 peer-checked:border-purple-600 peer-checked:bg-purple-50 peer-checked:text-purple-700 hover:bg-gray-50 transition-all text-center">
@@ -51,30 +51,46 @@
                 <!-- Common Fields -->
                 <div class="space-y-1">
                     <label class="text-xs font-medium text-gray-700">Full name</label>
-                    <input type="text" placeholder="Ex: Maitre Alami"
+                    <input name="name" type="text" placeholder="Ex: Maitre Alami"
                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow">
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs font-medium text-gray-700">Email</label>
-                    <input type="email" placeholder="contact@cabinet.ma"
+                    <input name="email" type="email" placeholder="contact@cabinet.ma"
                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow">
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs font-medium text-gray-700">Phone</label>
-                    <input type="tel" placeholder="+212 6..."
+                    <input name="phone" type="tel" placeholder="+212 6..."
                            class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow">
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs font-medium text-gray-700">City</label>
-                    <select
+                    <select name="city"
                         class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow appearance-none">
                         <?php foreach ($cities as $city) : ?>
-                        <option><?= $city->getName() ?></option>
+                        <option value="<?= $city->getName() ?>"><?= $city->getName() ?></option>
                         <?php endforeach; ?>
                     </select>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-medium text-gray-700">Years of experience</label>
+                    <div class="relative">
+                        <input name="YearsOfExperience" type="number" min="0" step="1" placeholder="Ex: 5" inputmode="numeric"
+                               class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow pr-12">
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">Years</span>
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-medium text-gray-700">Hourly rate</label>
+                    <div class="relative">
+                        <input name="hourlyRate" type="number" min="0" step="0.01" placeholder="Ex: 500.00" inputmode="decimal"
+                               class="w-full px-3 py-2 bg-white border border-gray-200 rounded-md text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-shadow pr-10">
+                        <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">DH</span>
+                    </div>
                 </div>
             </div>
 
@@ -101,7 +117,8 @@
                             calls.</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" class="sr-only peer">
+                        <input name="Consultation" type="hidden" value="0">
+                        <input name="Consultation" type="checkbox" value="1" class="sr-only peer">
                         <div
                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
                         </div>
